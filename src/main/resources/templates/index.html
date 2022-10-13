@@ -5,13 +5,18 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- TODO User should be able to submit data -->
+    <!-- Forsiden på siden, som beder om et navn, som kan udelades og en email der skal være der -->
     <section class="content">
-            <h1>🤑 Free moneyy no scam - very easy</h1>
+            <h1>🤑 Free money no scam - very easy</h1>
+        <!-- En <form> der sender brugerens indtastede info, POST, til en URL, /test, som er inde i IndexController -->
             <form method="POST" action="/test">
+                <label for="name">🥳 Please enter your name</label>
+                <input id="name" type="text" name="name"/>
+                <br>
                 <label for="email">🥳 Please enter your e-mail</label>
                 <input id="email" type="text" name="email"/>
-                <input type="submit">
+                <br>
+                <input type="submit" class="button">
             </form>
     </section>
 </body>

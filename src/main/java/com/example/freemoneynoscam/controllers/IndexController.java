@@ -1,5 +1,7 @@
 package com.example.freemoneynoscam.controllers;
 
+import com.example.freemoneynoscam.repository.EmailRepository;
+import com.example.freemoneynoscam.services.ValidateEmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,14 +12,41 @@ import org.springframework.web.context.request.WebRequest;
 @Controller
 public class IndexController {
 
+    // Starter forsiden ved at GetMapping, hente HTML filen index.html under templates
     @GetMapping("/")
     public String index(){
         return "index";
     }
 
+    // Startes af f.eks. <form action="/test"> inde i index.html, en metode der tager imod et WebRequest og sendere brugeren videre til en ny side
     @PostMapping("/test")
     public String test(WebRequest dataFromForm){
         System.out.println(dataFromForm.getParameter("email"));
-        return "redirect:/";
+        // Validerer at det er en korrekt email der tastes ind gennem class ValidateEmailService
+        ValidateEmailService validateEmailService = new ValidateEmailService();
+        // skaffer brugerens input ved at <form> har <input name="email">, getParameter("email")
+        String usersEmail = dataFromForm.getParameter("email");
+        // Brugerens email sendes som en String til ValidateEmailService, som sender en boolean tilbage
+        boolean isEmailValid = validateEmailService.isEmailValid(usersEmail);
+        if (isEmailValid) {
+            // Hvis emailen er valid, så sendes hele brugerens svar, WebRequest dataFromForm, videre til EmailRepository
+            EmailRepository emailRepository = new EmailRepository();
+            boolean isEmailPosted = emailRepository.postEmail(dataFromForm);
+            // Hvis brugerens svar lægges, INSERT INTO, til tabellen, så bliver brugeren ført, redirect:/success, til en ny side, success.html
+            if (isEmailPosted) {
+                return "redirect:/success";
+            }
+            // Ellers bliver brugeren ført, redirect:/failure, til en ny side, failure.html
+        }
+        return "redirect:/failure";
+    }
+
+    @GetMapping("/success")
+    public String success () {
+        return "success";
+    }
+    @GetMapping("/failure")
+    public String failure () {
+        return "failure";
     }
 }
