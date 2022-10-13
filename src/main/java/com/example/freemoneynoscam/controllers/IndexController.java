@@ -20,6 +20,7 @@ public class IndexController {
 
     // Startes af f.eks. <form action="/test"> inde i index.html, en metode der tager imod et WebRequest og sendere brugeren videre til en ny side
     @PostMapping("/test")
+    // PRG: P (PostMapping)
     public String test(WebRequest dataFromForm){
         System.out.println(dataFromForm.getParameter("email"));
         // Validerer at det er en korrekt email der tastes ind gennem class ValidateEmailService
@@ -34,6 +35,7 @@ public class IndexController {
             boolean isEmailPosted = emailRepository.postEmail(dataFromForm);
             // Hvis brugerens svar lægges, INSERT INTO, til tabellen, så bliver brugeren ført, redirect:/success, til en ny side, success.html
             if (isEmailPosted) {
+                // PRG: R (redirect)
                 return "redirect:/success";
             }
             // Ellers bliver brugeren ført, redirect:/failure, til en ny side, failure.html
@@ -43,6 +45,7 @@ public class IndexController {
 
     @GetMapping("/success")
     public String success () {
+        // PRG: G (GetMapping)
         return "success";
     }
     @GetMapping("/failure")
