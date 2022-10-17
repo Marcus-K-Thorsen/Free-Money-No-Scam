@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Free Money user information</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Link "knapper" der sender brugeren tilbage til forsiden eller til websiden "HTML filen" "/users" -->
+<div class="top">
+    <section class="grid-container" id="grid-links">
+        <a class="links-internal" href="/">
+            Homepage ❯
+        </a>
+        <a class="links-internal" href="/users">
+            Random Users ❯
+        </a>
+
+    </section>
+    <!-- et liste element <li> der tager imod et user objekt og finder (user.getName og user.getEmail) det objekts attributter: name og email der displayes på siden -->
+</div>
+    <ul>
+        <h3>Username</h3>
+        <li th:text="${user.getName()}"></li>
+        <h3>Email</h3>
+        <li th:text="${user.getEmail()}"></li>
+    </ul>
+</body>
+</html>

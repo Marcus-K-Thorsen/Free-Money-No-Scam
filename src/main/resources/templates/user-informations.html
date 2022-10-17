@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <title>Free Money user information</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="top">
+  <section class="grid-container" id="grid-links">
+    <a class="links-internal" href="/">
+      Homepage ❯
+    </a>
+    <a class="links-internal" href="/user">
+      Random User ❯
+    </a>
+
+  </section>
+</div>
+<section class="grid-container">
+  <!-- HTML elementer <section> der modtager en user, ved navn userX og finder dets navn og email (userX.getAttribut()) og displayer det på websiden -->
+  <div>
+    <h3>Username</h3>
+    <section th:text="${user1.getName()}"></section>
+    <h3>Email</h3>
+    <section th:text="${user1.getEmail()}"></section>
+  </div>
+  <div>
+    <h3>Username</h3>
+    <section th:text="${user2.getName()}"></section>
+    <h3>Email</h3>
+    <section th:text="${user2.getEmail()}"></section>
+  </div>
+  <div>
+    <h3>Username</h3>
+    <section th:text="${user3.getName()}"></section>
+    <h3>Email</h3>
+    <section th:text="${user3.getEmail()}"></section>
+  </div>
+  <div>
+    <h3>Username</h3>
+    <section th:text="${user4.getName()}"></section>
+    <h3>Email</h3>
+    <section th:text="${user4.getEmail()}"></section>
+  </div>
+
+</section>
+</body>
+</html>

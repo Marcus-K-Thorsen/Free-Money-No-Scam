@@ -12,6 +12,8 @@ import org.springframework.web.context.request.WebRequest;
 @Controller
 public class IndexController {
 
+    private final ValidateEmailService validEmailServ = new ValidateEmailService();
+
     // Starter forsiden ved at GetMapping, hente HTML filen index.html under templates
     @GetMapping("/")
     public String index(){
@@ -23,12 +25,13 @@ public class IndexController {
     // PRG: P (PostMapping)
     public String test(WebRequest dataFromForm){
         System.out.println(dataFromForm.getParameter("email"));
-        // Validerer at det er en korrekt email der tastes ind gennem class ValidateEmailService
-        ValidateEmailService validateEmailService = new ValidateEmailService();
         // skaffer brugerens input ved at <form> har <input name="email">, getParameter("email")
         String usersEmail = dataFromForm.getParameter("email");
+
+        // Validerer at det er en korrekt email der tastes ind gennem class ValidateEmailService
+        assert usersEmail != null;
+        boolean isEmailValid = validEmailServ.isEmailValid(usersEmail);
         // Brugerens email sendes som en String til ValidateEmailService, som sender en boolean tilbage
-        boolean isEmailValid = validateEmailService.isEmailValid(usersEmail);
         if (isEmailValid) {
             // Hvis emailen er valid, så sendes hele brugerens svar, WebRequest dataFromForm, videre til EmailRepository
             EmailRepository emailRepository = new EmailRepository();
