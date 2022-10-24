@@ -1,23 +1,31 @@
 package com.example.freemoneynoscam.controllers;
-
+import com.example.freemoneynoscam.model.User;
 import com.example.freemoneynoscam.repository.EmailRepository;
 import com.example.freemoneynoscam.services.ValidateEmailService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
 @Controller
 public class IndexController {
 
     private final ValidateEmailService validEmailServ = new ValidateEmailService();
+    private final EmailRepository emailRepository = new EmailRepository();
 
     // Starter forsiden ved at GetMapping, hente HTML filen index.html under templates
     @GetMapping("/")
     public String index(){
         return "index";
+    }
+
+    @PostMapping("/testen")
+    public String testen(Model model, WebRequest dataFromHiddenForm) {
+        User userToDisplay = emailRepository.findUserFromEmail(dataFromHiddenForm);
+        model.addAttribute("user", userToDisplay);
+        return "test-side";
     }
 
     // Startes af f.eks. <form action="/test"> inde i index.html, en metode der tager imod et WebRequest og sendere brugeren videre til en ny side

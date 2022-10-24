@@ -17,6 +17,18 @@
 
   </section>
 </div>
+
+
+
+
+<form method="POST" action="/testen">
+
+  <input type="hidden" name="userEmail" th:value="${user1.getEmail()}">
+  <button type="submit" class="button åben-side-med-input">
+    Submit
+  </button>
+</form>
+
 <section class="grid-container">
   <!-- HTML elementer <section> der modtager en user, ved navn userX og finder dets navn og email (userX.getAttribut()) og displayer det på websiden -->
   <div>

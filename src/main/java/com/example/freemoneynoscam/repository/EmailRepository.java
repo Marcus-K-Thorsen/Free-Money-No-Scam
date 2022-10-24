@@ -16,6 +16,21 @@ public class EmailRepository {
   // Skaber kontakt til en database, DatabaseConnectionManager.getConnection(), og sætter de i en variable conn, når det skabes en ny, new EmailRepository
   private Connection conn = DatabaseConnectionManager.getConnection();
 
+  public User findUserFromEmail (WebRequest dataFromForm) {
+    String userEmail = dataFromForm.getParameter("userEmail");
+    try {
+      PreparedStatement psts = conn.prepareStatement("SELECT * FROM test WHERE email=?");
+      psts.setString(1, userEmail);
+      ResultSet resultSet = psts.executeQuery();
+      resultSet.next();
+      String name = resultSet.getString("name");
+      String email = resultSet.getString("email");
+      return new User(name, email);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
   // Forsøger at indføre en bruger svar, WebRequest dataFromForm, ind i tabellen test, hvis ikke muligt sendes false tilbage ellers sendes true
   public boolean postEmail(WebRequest dataFromForm) {
     // Finder de to svar, name og email, som er brugerens svar i den WebRequest dataFromForm der sendes med metodekaldet, og lægges i String variabler
