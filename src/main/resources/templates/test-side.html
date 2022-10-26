@@ -11,5 +11,16 @@
     <h3>Email</h3>
     <section th:text="${user.getEmail()}"></section>
 </div>
+<div>
+    <form method="POST" action="/">
+        <label>
+            <input type="text" name="userName" th:placeholder="${user.getName()}"  class="edit-input">
+        </label>
+        <button type="submit" class="button åben-side">
+            Test submit
+        </button>
+    </form>
+    <a th:href="${user.getLink()}" target="_blank">Et link at trykke på</a>
+</div>
 </body>
 </html>
