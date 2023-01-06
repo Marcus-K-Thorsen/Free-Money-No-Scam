@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-<div>
+<div class="top">
     <h3>Username</h3>
     <section th:text="${user.getName()}"></section>
     <h3>Email</h3>
     <section th:text="${user.getEmail()}"></section>
+    <h3>Datoen</h3>
+    <section th:text="${datoen}"></section>
 </div>
-<div>
+<div class="content">
     <form method="POST" action="/">
         <label>
             <input type="text" name="userName" th:placeholder="${user.getName()}"  class="edit-input">

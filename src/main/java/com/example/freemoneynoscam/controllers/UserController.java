@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -33,6 +34,8 @@ public class UserController {
     model.addAttribute("user2", users.get(1));
     model.addAttribute("user3", users.get(2));
     model.addAttribute("user4", users.get(3));
+
+    model.addAttribute("maxdate", LocalDate.now().minusDays(1));
     return "user-informations";
   }
 }

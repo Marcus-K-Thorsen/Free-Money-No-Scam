@@ -19,7 +19,7 @@ public class EmailRepository {
   public User findUserFromEmail (WebRequest dataFromForm) {
     String userEmail = dataFromForm.getParameter("userEmail");
     try {
-      PreparedStatement psts = conn.prepareStatement("SELECT * FROM test WHERE email=?");
+      PreparedStatement psts = conn.prepareStatement("SELECT * FROM clbotest.test WHERE email=?");
       psts.setString(1, userEmail);
       ResultSet resultSet = psts.executeQuery();
       resultSet.next();
@@ -38,7 +38,7 @@ public class EmailRepository {
     String userEmail = dataFromForm.getParameter("email");
     try {
       // Forsøger, try, at indføre String variabler, userName og UserEmail, ind i den tilsluttede databases, conn, tabel, test,
-      PreparedStatement psts = conn.prepareStatement("INSERT INTO test(name,email) VALUES(?,?)");
+      PreparedStatement psts = conn.prepareStatement("INSERT INTO clbotest.test(name,email) VALUES(?,?)");
       // Sætter, setString(index, userSvar), de svar som brugeren gav, dataFromForm, ind i tabellen, executeUpdate()
       psts.setString(1, userName); // Index 1 henfører til den første parameter, name
       psts.setString(2, userEmail); // Index 2 henfører til den anden parameter, email
@@ -114,13 +114,13 @@ public class EmailRepository {
       String email = "";
       // Forsøger (try) at gå igennem databasens table "test" ud fra en SQL statement: "SELECT name, email FROM test WHERE id = ?"
       try {
-        PreparedStatement psts2 = conn.prepareStatement("SELECT name, email FROM test WHERE id = ?");
+        PreparedStatement psts2 = conn.prepareStatement("SELECT name, email FROM clbotest.test WHERE id = ?");
         // Sætter ?, som skal være 1, det første og eneste ?, til at være randomID
         psts2.setInt(1, randomID);
         // Udfører, psts2.executeQuery(), SQL statementet og lægger det resultat (row/bruger for name,email/koloner) der har id=randomID i en variable: resultatSet2
         ResultSet resultSet2 = psts2.executeQuery();
 
-        // Gør sådan at den kan få fat i den første row vi ønsker for den fundne info om bruger/row ved at bruge .next() på den. Nok fordi den række den originalt har fat i er bare for name og email, mens vi ønsker værdierne,som den holder
+        // Gør sådan at den kan få fat i den første row vi ønsker for den fundne info om bruger/row ved at bruge .next() på den. Nok fordi den række den originalt har fat i er bare for name og email, mens vi ønsker værdierne, som den holder
         resultSet2.next();
         // Gemmer de værdier vi har fundet for en bruger med id=randomID og gemmer det i variablerne: name og email
         name = resultSet2.getString("name");
@@ -154,7 +154,7 @@ public class EmailRepository {
   public int getRandomIndex() {
     try {
       // Laver en SQL statement der finder id for alle brugere i den tilknyttede databases table "test"
-      PreparedStatement psts = conn.prepareStatement("SELECT id FROM test");
+      PreparedStatement psts = conn.prepareStatement("SELECT id FROM clbotest.test");
       // Udfører(executeQuery()) SQL statementet og gemmer det i variablen resultSet
       ResultSet resultSet = psts.executeQuery();
       // Laver en liste der kan holde tal (List<Integer>), for at holde alle de bruger id's, som er i databasens table test

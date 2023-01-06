@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
   <title>Free Money user information</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <div class="top">
@@ -22,7 +22,8 @@
 
 
 <form method="POST" action="/testen">
-
+  <label for="datefield">Dato Felt</label>
+  <input type="date" id="datefield" name="date" th:max="${maxdate}">
   <input type="hidden" name="userEmail" th:value="${user1.getEmail()}">
   <button type="submit" class="button åben-side-med-input">
     Submit

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
+import java.time.LocalDate;
+
 @Controller
 public class IndexController {
 
@@ -23,6 +25,17 @@ public class IndexController {
 
     @PostMapping("/testen")
     public String testen(Model model, WebRequest dataFromHiddenForm) {
+        String datoFelt = dataFromHiddenForm.getParameter("date");
+        LocalDate datoen;
+
+        if (datoFelt != null && !(datoFelt.isBlank())) {
+            datoen = LocalDate.parse(datoFelt);
+        } else {
+            datoen = LocalDate.now().plusDays(7);
+        }
+
+        model.addAttribute("datoen", datoen);
+
         User userToDisplay = emailRepository.findUserFromEmail(dataFromHiddenForm);
         model.addAttribute("user", userToDisplay);
         return "test-side";
